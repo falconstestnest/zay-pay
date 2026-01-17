@@ -476,6 +476,7 @@
                     <span>ZayPay <sup style="font-size:0.6rem; background:var(--accent); color:white; padding:1px 4px; border-radius:4px;">INV</sup></span>
                 </a>
                 <div class="nav-links">
+                    <a href="index.html" style="color: var(--primary); font-weight: 700;"><i class="fas fa-arrow-left"></i> Main Site</a>
                     <a href="#market">Market</a>
                     <a href="#competition">Moats</a>
                     <a href="#traction">Traction</a>
@@ -645,7 +646,33 @@
         </div>
     </footer>
 
+    <div class="modal-overlay" id="investor-modal">
+        <div class="modal">
+            <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+            <h2>Request Full Deck</h2>
+            <p>Enter your professional email to receive our comprehensive 45-page investor memorandum.</p>
+            <input type="email" placeholder="name@firm.com" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <button class="cta-button" style="width: 100%;" onclick="closeInvestorModal()">Request Access</button>
+            <button class="toggle-btn" style="margin: 10px auto; color: var(--gray);" onclick="closeInvestorModal()">Cancel</button>
+        </div>
+    </div>
+
     <script>
+        // Investor Modal Flow
+        const invModal = document.getElementById('investor-modal');
+        const openInvestorModal = () => invModal.classList.add('modal-active');
+        const closeInvestorModal = () => invModal.classList.remove('modal-active');
+
+        // Link all "Request" buttons to flow
+        document.querySelectorAll('a[href*="mailto"], .cta-button').forEach(btn => {
+            if (btn.innerText.includes('Request')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openInvestorModal();
+                });
+            }
+        });
+
         // Market Forecast Chart
         const ctx = document.getElementById('marketChart').getContext('2d');
         new Chart(ctx, {
