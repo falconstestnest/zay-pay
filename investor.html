@@ -215,6 +215,16 @@
         /* Financial projections */
         .financial-projections {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px -20px;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 768px) {
+            .projection-table th, .projection-table td {
+                padding: 10px 8px;
+                font-size: 0.8rem;
+            }
         }
 
         .projection-table {
@@ -521,7 +531,46 @@
             .roadmap-card::after { display: none; }
         }
 
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: white;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            padding: 15px 0;
+            text-decoration: none;
+            color: var(--secondary);
+            border-bottom: 1px solid #eee;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
             .competitive-matrix { grid-template-columns: 1fr; }
             .tam-sam-som { grid-template-columns: 1fr; }
             .value-prop-grid { grid-template-columns: 1fr; }
@@ -546,8 +595,19 @@
                     <a href="#financials">Financials</a>
                     <a href="#team">Team</a>
                 </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <a href="mailto:invest@zaypay.com" class="cta-button">Request Deck</a>
             </nav>
+            <div class="mobile-menu" id="mobile-menu">
+                <a href="index.html">Main Site</a>
+                <a href="#market">Market</a>
+                <a href="#moats">Moats</a>
+                <a href="#traction">Traction</a>
+                <a href="#financials">Financials</a>
+                <a href="mailto:invest@zaypay.com" class="cta-button">Request Deck</a>
+            </div>
         </div>
     </header>
 
@@ -775,6 +835,21 @@
                 alert('Please enter a valid professional email.');
             }
         };
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
 
         // Link all "Request" buttons to flow
         document.querySelectorAll('a[href*="mailto"], .cta-button:not([onclick])').forEach(btn => {
