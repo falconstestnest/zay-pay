@@ -635,7 +635,6 @@
         </div>
     </section>
 
-    <!-- Pricing Highlight -->
     <section id="pricing" class="section">
         <div class="container">
                 <div class="highlight">
@@ -649,7 +648,7 @@
     </section>
 
     <!-- Comparison Table -->
-    <section class="section" style="background: white;">
+    <section id="compare" class="section" style="background: white;">
         <div class="container">
             <h2 class="section-title">How We Compare</h2>
             <div class="comparison">
@@ -689,7 +688,7 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="section">
+    <section id="traction" class="section">
         <div class="container">
             <div class="market-stats">
                 <div class="stat">
@@ -746,7 +745,7 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-grid">
                 <div>
@@ -812,8 +811,8 @@
         };
 
         // Attach flow to buttons
-        document.querySelectorAll('a[href="#"], .cta-button:not([href])').forEach(btn => {
-            if (btn.getAttribute('href') === '#' || btn.tagName === 'BUTTON') {
+        document.querySelectorAll('a[href="#"], .cta-button:not([href]):not([onclick])').forEach(btn => {
+            if (btn.getAttribute('href') === '#' || (btn.tagName === 'BUTTON' && !btn.onclick)) {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     openModal();

@@ -488,7 +488,7 @@
         </div>
     </header>
 
-    <section class="hero deck-section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; text-align: center;">
+    <section id="traction" class="hero deck-section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; text-align: center;">
         <div class="container">
             <h1 class="deck-title" style="color: white; font-size: 3.5rem;">The Future of Payments in MENA</h1>
             <p class="deck-subtitle" style="color: #94a3b8;">ZayPay is building the first truly universal, borderless payment layer for the UAE and beyond.</p>
@@ -545,7 +545,7 @@
         </div>
     </section>
 
-    <section id="competition" class="deck-section">
+    <section id="moats" class="deck-section">
         <div class="container">
             <h2 class="deck-title">Competitive Moats</h2>
             <div class="competitive-matrix">
@@ -653,7 +653,7 @@
         </div>
     </section>
 
-    <section class="exit-strategy">
+    <section id="team" class="exit-strategy">
         <div class="container">
             <h2 class="deck-title" style="color: white;">Exit Strategy</h2>
             <div class="exit-grid">
@@ -679,24 +679,44 @@
     </footer>
 
     <div class="modal-overlay" id="investor-modal">
-        <div class="modal">
+        <div class="modal" id="investor-form">
             <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
             <h2>Request Full Deck</h2>
             <p>Enter your professional email to receive our comprehensive 45-page investor memorandum.</p>
-            <input type="email" placeholder="name@firm.com" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
-            <button class="cta-button" style="width: 100%;" onclick="closeInvestorModal()">Request Access</button>
+            <input type="email" id="investor-email" placeholder="name@firm.com" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <button class="cta-button" style="width: 100%;" onclick="handleInvestorRequest()">Request Access</button>
             <button class="toggle-btn" style="margin: 10px auto; color: var(--gray);" onclick="closeInvestorModal()">Cancel</button>
+        </div>
+        <div class="modal" id="investor-success" style="display: none;">
+            <i class="fas fa-check-double" style="font-size: 3rem; color: var(--success); margin-bottom: 20px;"></i>
+            <h2>Request Received</h2>
+            <p>Thank you for your interest. Our investor relations team will review your request and send the deck shortly.</p>
+            <button class="cta-button" style="width: 100%;" onclick="closeInvestorModal()">Back to Deck</button>
         </div>
     </div>
 
     <script>
         // Investor Modal Flow
         const invModal = document.getElementById('investor-modal');
-        const openInvestorModal = () => invModal.classList.add('modal-active');
+        const openInvestorModal = () => {
+            document.getElementById('investor-form').style.display = 'block';
+            document.getElementById('investor-success').style.display = 'none';
+            invModal.classList.add('modal-active');
+        };
         const closeInvestorModal = () => invModal.classList.remove('modal-active');
 
+        const handleInvestorRequest = () => {
+            const email = document.getElementById('investor-email').value;
+            if (email && email.includes('@')) {
+                document.getElementById('investor-form').style.display = 'none';
+                document.getElementById('investor-success').style.display = 'block';
+            } else {
+                alert('Please enter a valid professional email.');
+            }
+        };
+
         // Link all "Request" buttons to flow
-        document.querySelectorAll('a[href*="mailto"], .cta-button').forEach(btn => {
+        document.querySelectorAll('a[href*="mailto"], .cta-button:not([onclick])').forEach(btn => {
             if (btn.innerText.includes('Request')) {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
