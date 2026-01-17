@@ -775,21 +775,41 @@
     </footer>
 
     <div class="modal-overlay" id="cta-modal">
-        <div class="modal">
+        <div class="modal" id="waitlist-form">
             <i class="fas fa-rocket" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
             <h2>Ready to ZayPay?</h2>
             <p>Our mobile app is launching soon. Join the waitlist to be among the first users.</p>
-            <input type="email" placeholder="Enter your email" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
-            <button class="cta-button" style="width: 100%;" onclick="closeModal()">Join Waitlist</button>
+            <input type="email" id="waitlist-email" placeholder="Enter your email" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <button class="cta-button" style="width: 100%;" onclick="handleWaitlist(event)">Join Waitlist</button>
             <button class="toggle-btn" style="margin: 10px auto;" onclick="closeModal()">Close</button>
+        </div>
+        <div class="modal" id="waitlist-success" style="display: none;">
+            <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 20px;"></i>
+            <h2>You're on the list!</h2>
+            <p>Thanks for joining. We've sent a confirmation to your email. Stay tuned for early access!</p>
+            <button class="cta-button" style="width: 100%;" onclick="closeModal()">Awesome</button>
         </div>
     </div>
 
     <script>
         // Modal Flow
         const modal = document.getElementById('cta-modal');
-        const openModal = () => modal.classList.add('modal-active');
+        const openModal = () => {
+            document.getElementById('waitlist-form').style.display = 'block';
+            document.getElementById('waitlist-success').style.display = 'none';
+            modal.classList.add('modal-active');
+        };
         const closeModal = () => modal.classList.remove('modal-active');
+
+        const handleWaitlist = (e) => {
+            const email = document.getElementById('waitlist-email').value;
+            if (email && email.includes('@')) {
+                document.getElementById('waitlist-form').style.display = 'none';
+                document.getElementById('waitlist-success').style.display = 'block';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        };
 
         // Attach flow to buttons
         document.querySelectorAll('a[href="#"], .cta-button:not([href])').forEach(btn => {
