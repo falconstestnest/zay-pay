@@ -458,6 +458,69 @@
             margin: 20px 0;
         }
 
+        /* Modern Roadmap Styles */
+        .roadmap-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .roadmap-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .roadmap-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .quarter-tag {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .roadmap-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .roadmap-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .roadmap-card::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -25px;
+            width: 20px;
+            height: 2px;
+            background: #e2e8f0;
+        }
+
+        .roadmap-card:last-child::after { display: none; }
+
+        @media (max-width: 992px) {
+            .roadmap-card::after { display: none; }
+        }
+
         @media (max-width: 768px) {
             .competitive-matrix { grid-template-columns: 1fr; }
             .tam-sam-som { grid-template-columns: 1fr; }
@@ -621,33 +684,31 @@
         </div>
     </section>
 
-    <section id="about" class="section" style="background: white; padding: 80px 0;">
+    <section id="about" class="section" style="background: #f8fafc; padding: 100px 0;">
         <div class="container">
             <h2 class="deck-title">2026 Launch Roadmap</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Q1: MVP & Compliance</h3>
-                        <p>Secure Central Bank sandbox approvals. Integrate salary account payments.</p>
-                    </div>
+            <p class="deck-subtitle">Strategic milestones to achieving market leadership and profitability.</p>
+            
+            <div class="roadmap-container">
+                <div class="roadmap-card">
+                    <div class="quarter-tag">Q1 2026</div>
+                    <h3>MVP & Compliance</h3>
+                    <p>Secure Central Bank sandbox approvals. Integrate salary account and debit card payment layers.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Q2: Soft Launch</h3>
-                        <p>Targeting UAE expats & young professionals via digital campaigns.</p>
-                    </div>
+                <div class="roadmap-card">
+                    <div class="quarter-tag" style="background: var(--info);">Q2 2026</div>
+                    <h3>Soft Launch</h3>
+                    <p>Aggressive digital marketing targeting UAE expats. Establish key bank aggregator partnerships.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Q3: Scale</h3>
-                        <p>Targeting 50k-100k active users. Launch auto-pay features.</p>
-                    </div>
+                <div class="roadmap-card">
+                    <div class="quarter-tag" style="background: var(--accent);">Q3 2026</div>
+                    <h3>Scaling Phase</h3>
+                    <p>Targeting 50k-100k active users. Launch automated reminders and credit-score protection alerts.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Q4: Profitability</h3>
-                        <p>Launch ZayPay Plus. Prepare for potential Series A scaling.</p>
-                    </div>
+                <div class="roadmap-card">
+                    <div class="quarter-tag" style="background: var(--success);">Q4 2026</div>
+                    <h3>Profitability</h3>
+                    <p>Launch ZayPay Plus subscription. Reach break-even and prepare for Series A scaling.</p>
                 </div>
             </div>
         </div>
