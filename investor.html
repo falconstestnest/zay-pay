@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZayPay - Investment Deck: UAE's Universal Payment Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* Competitive analysis specific styles */
+        .competitive-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 40px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .matrix-cell {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .matrix-header {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .matrix-feature {
+            background: #f8fafc;
+            font-weight: 600;
+            text-align: left;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .matrix-check {
+            color: var(--success);
+            font-size: 1.5rem;
+        }
+
+        .matrix-partial {
+            color: var(--warning);
+            font-size: 1.5rem;
+        }
+
+        .matrix-cross {
+            color: var(--danger);
+            font-size: 1.5rem;
+        }
+
+        /* Market data visualization */
+        .market-viz {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 30px 0;
+        }
+
+        /* Traction metrics */
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        @media (min-width: 768px) {
+            .traction-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .traction-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+
+        .traction-card.warning {
+            border-top-color: var(--warning);
+        }
+
+        .traction-card.success {
+            border-top-color: var(--success);
+        }
+
+        .traction-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .traction-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Financial projections */
+        .financial-projections {
+            overflow-x: auto;
+        }
+
+        .projection-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            min-width: 800px;
+        }
+
+        .projection-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .projection-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .projection-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .growth-badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Team section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        /* Investor deck specific */
+        .deck-section {
+            padding: 80px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .deck-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .deck-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .tam-sam-som {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .market-tier {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-tier::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+        }
+
+        .market-tier.tam::before {
+            background: var(--primary);
+        }
+
+        .market-tier.sam::before {
+            background: var(--info);
+        }
+
+        .market-tier.som::before {
+            background: var(--success);
+        }
+
+        .market-tier h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .market-size {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .market-tier.tam .market-size { color: var(--primary); }
+        .market-tier.sam .market-size { color: var(--info); }
+        .market-tier.som .market-size { color: var(--success); }
+
+        /* Value proposition canvas */
+        .value-prop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .value-prop-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .value-prop-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Moats and barriers */
+        .moat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .moat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .moat-card.warning { border-left-color: var(--warning); }
+
+        /* Exit strategy */
+        .exit-strategy {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .exit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .exit-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Interactive elements */
+        .toggle-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .toggle-content.active {
+            max-height: 500px;
+            margin-top: 20px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .competitive-matrix { grid-template-columns: 1fr; }
+            .tam-sam-som { grid-template-columns: 1fr; }
+            .value-prop-grid { grid-template-columns: 1fr; }
+            .moat-grid { grid-template-columns: 1fr; }
+            .deck-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-credit-card"></i>
+                    <span>ZayPay <sup style="font-size:0.6rem; background:var(--accent); color:white; padding:1px 4px; border-radius:4px;">INV</sup></span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" style="color: var(--primary); font-weight: 700;"><i class="fas fa-arrow-left"></i> Main Site</a>
+                    <a href="#market">Market</a>
+                    <a href="#competition">Moats</a>
+                    <a href="#traction">Traction</a>
+                    <a href="#financials">Financials</a>
+                    <a href="#team">Team</a>
+                </div>
+                <a href="mailto:invest@zaypay.com" class="cta-button">Request Deck</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero deck-section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; text-align: center;">
+        <div class="container">
+            <h1 class="deck-title" style="color: white; font-size: 3.5rem;">The Future of Payments in MENA</h1>
+            <p class="deck-subtitle" style="color: #94a3b8;">ZayPay is building the first truly universal, borderless payment layer for the UAE and beyond.</p>
+            <div class="traction-grid">
+                <div class="traction-card" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                    <div class="traction-number" style="color: var(--accent);">$50B+</div>
+                    <div class="traction-label">Processed Volume</div>
+                </div>
+                <div class="traction-card" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                    <div class="traction-number" style="color: var(--accent);">10M+</div>
+                    <div class="traction-label">Active Users</div>
+                </div>
+                <div class="traction-card" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                    <div class="traction-number" style="color: var(--accent);">45%</div>
+                    <div class="traction-label">MoM Growth</div>
+                </div>
+                <div class="traction-card" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                    <div class="traction-number" style="color: var(--accent);">150+</div>
+                    <div class="traction-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="market" class="deck-section">
+        <div class="container">
+            <h2 class="deck-title">Market Opportunity</h2>
+            <p class="deck-subtitle">Capitalizing on the massive shift from cash to digital in the Middle East.</p>
+            
+            <div class="tam-sam-som">
+                <div class="market-tier tam">
+                    <h3>TAM (Global Fintech)</h3>
+                    <div class="market-size">$15.5T</div>
+                    <p>Total global addressable market by 2030</p>
+                </div>
+                <div class="market-tier sam">
+                    <h3>SAM (MENA Digital Pay)</h3>
+                    <div class="market-size">$850B</div>
+                    <p>Specific market in the Middle East region</p>
+                </div>
+                <div class="market-tier som">
+                    <h3>SOM (ZayPay Target)</h3>
+                    <div class="market-size">$45B</div>
+                    <p>Realistic 5% market capture by Year 3</p>
+                </div>
+            </div>
+
+            <div class="market-viz">
+                <h3 style="margin-bottom: 20px;">Market Adoption Forecast</h3>
+                <div class="chart-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competition" class="deck-section">
+        <div class="container">
+            <h2 class="deck-title">Competitive Moats</h2>
+            <div class="competitive-matrix">
+                <div class="matrix-cell matrix-header">Feature</div>
+                <div class="matrix-cell matrix-header">ZayPay</div>
+                <div class="matrix-cell matrix-header">Legacy Banks</div>
+                <div class="matrix-cell matrix-header">Competitors</div>
+
+                <div class="matrix-cell matrix-feature">Instant Remittance</div>
+                <div class="matrix-cell"><i class="fas fa-check-circle matrix-check"></i></div>
+                <div class="matrix-cell"><i class="fas fa-times-circle matrix-cross"></i></div>
+                <div class="matrix-cell"><i class="fas fa-minus-circle matrix-partial"></i></div>
+
+                <div class="matrix-cell matrix-feature">Zero-Fee Layer</div>
+                <div class="matrix-cell"><i class="fas fa-check-circle matrix-check"></i></div>
+                <div class="matrix-cell"><i class="fas fa-times-circle matrix-cross"></i></div>
+                <div class="matrix-cell"><i class="fas fa-times-circle matrix-cross"></i></div>
+
+                <div class="matrix-cell matrix-feature">AI Fraud Engine</div>
+                <div class="matrix-cell"><i class="fas fa-check-circle matrix-check"></i></div>
+                <div class="matrix-cell"><i class="fas fa-minus-circle matrix-partial"></i></div>
+                <div class="matrix-cell"><i class="fas fa-minus-circle matrix-partial"></i></div>
+            </div>
+
+            <div class="moat-grid">
+                <div class="moat-card">
+                    <h3>Regulatory Advantage</h3>
+                    <p>Full licensing in UAE and KSA, providing a high barrier to entry for international players.</p>
+                </div>
+                <div class="moat-card warning">
+                    <h3>Network Effect</h3>
+                    <p>Proprietary P2P settlement layer that grows exponentially with every new user.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="financials" class="deck-section">
+        <div class="container">
+            <h2 class="deck-title">Financial Projections</h2>
+            <div class="financial-projections">
+                <table class="projection-table">
+                    <thead>
+                        <tr>
+                            <th>Metric ($ Millions)</th>
+                            <th>Year 1 (Est)</th>
+                            <th>Year 2 (Proj)</th>
+                            <th>Year 3 (Proj)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Revenue</td>
+                            <td>$12.5</td>
+                            <td>$45.0 <span class="growth-badge">+260%</span></td>
+                            <td>$142.0 <span class="growth-badge">+215%</span></td>
+                        </tr>
+                        <tr>
+                            <td>EBITDA</td>
+                            <td>-$2.5</td>
+                            <td>$4.2</td>
+                            <td>$38.5</td>
+                        </tr>
+                        <tr>
+                            <td>User Acquisition Cost</td>
+                            <td>$8.50</td>
+                            <td>$6.20</td>
+                            <td>$4.80</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="exit-strategy">
+        <div class="container">
+            <h2 class="deck-title" style="color: white;">Exit Strategy</h2>
+            <div class="exit-grid">
+                <div class="exit-card">
+                    <i class="fas fa-chart-line" style="font-size: 2rem; margin-bottom: 20px;"></i>
+                    <h3>IPO (Nasdaq/DFM)</h3>
+                    <p>Targeting public listing by 2028 with projected $5B+ valuation.</p>
+                </div>
+                <div class="exit-card">
+                    <i class="fas fa-handshake" style="font-size: 2rem; margin-bottom: 20px;"></i>
+                    <h3>Strategic M&A</h3>
+                    <p>Acquisition targets for global fintech giants (PayPal, Stripe, Visa).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--secondary); color: white; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <p>&copy; 2025 ZayPay Inc. | Confidential Investor Relations</p>
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px;">Investment in startups involves significant risks. This page is for informational purposes only.</p>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="investor-modal">
+        <div class="modal">
+            <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+            <h2>Request Full Deck</h2>
+            <p>Enter your professional email to receive our comprehensive 45-page investor memorandum.</p>
+            <input type="email" placeholder="name@firm.com" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <button class="cta-button" style="width: 100%;" onclick="closeInvestorModal()">Request Access</button>
+            <button class="toggle-btn" style="margin: 10px auto; color: var(--gray);" onclick="closeInvestorModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Investor Modal Flow
+        const invModal = document.getElementById('investor-modal');
+        const openInvestorModal = () => invModal.classList.add('modal-active');
+        const closeInvestorModal = () => invModal.classList.remove('modal-active');
+
+        // Link all "Request" buttons to flow
+        document.querySelectorAll('a[href*="mailto"], .cta-button').forEach(btn => {
+            if (btn.innerText.includes('Request')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openInvestorModal();
+                });
+            }
+        });
+
+        // Market Forecast Chart
+        const ctx = document.getElementById('marketChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2023', '2024', '2025', '2026', '2027', '2028'],
+                datasets: [{
+                    label: 'Projected Volume ($ Billions)',
+                    data: [12, 50, 110, 240, 480, 950],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
